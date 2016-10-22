@@ -5,7 +5,7 @@ var dino = new Image();
 dino.src = "dino.png";
 // Putting picture onto canvas 
 dino.onload = function(){
-	ctx5.drawImage(dino,550,250,200,200)
+	ctx5.drawImage(dino,200,250,200,200)
 }
 //Creating new image two
 var ice = new Image();
