@@ -80,7 +80,7 @@ function update(){
 	if (cursors.up.isDown && player.body.touching.down) {
 		player.body.velocity.y = -300;
 	}
-}
+
 
 // Enemy AI
 if (baddie.x > 749) {
@@ -93,26 +93,3 @@ if (baddie.x > 749) {
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
