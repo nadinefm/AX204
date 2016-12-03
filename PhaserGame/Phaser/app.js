@@ -55,6 +55,36 @@ function create(){
 		baddie.body.gravity.y = 500;
 		baddie.body.collideWorldBounds = true;
 
+	baddie2 = game.add.sprite(10, 20, 'baddie');
+		//animate
+		baddie2.animations.add('left', [0,1], 10, true);
+		baddie2.animations.add('right', [2,3], 10, true);
+		//physics
+		game.physics.arcade.enable(baddie2);
+		baddie2.body.bounce.y = 0.2;
+		baddie2.body.gravity.y = 500;
+		baddie2.body.collideWorldBounds = true;
+
+	baddie3 = game.add.sprite(200, 20, 'baddie');
+		//animate
+		baddie3.animations.add('left', [0,1], 10, true);
+		baddie3.animations.add('right', [2,3], 10, true);
+		//physics
+		game.physics.arcade.enable(baddie3);
+		baddie3.body.bounce.y = 0.2;
+		baddie3.body.gravity.y = 500;
+		baddie3.body.collideWorldBounds = true;
+
+	//Create stars 
+	stars = game.add.physicsGroup
+	stars.enableBody=true;
+	//Loop to create 12 stars 
+	for  (var i = 0; i < 12; i++) {
+		var star = stars.create(i * 70,'star');
+		star.body.gravity.y = 200;
+		star.body.bounce.y = math.random() * 0.9;
+	}
+
 	// Keyboard inputs
 	cursors = game.input.keyboard.createCursorKeys();
 }
@@ -63,8 +93,12 @@ function update(){
 	// Make the player & enemy sprite collide with the platform
 	game.physics.arcade.collide(player, platforms);
 	game.physics.arcade.collide(baddie, platforms);
+	game.physics.arcade.collide(baddie2, platforms);
+	game.physics.arcade.collide(baddie3, platforms);
+	
 	// Player speed reset to 0
 	player.body.velocity.x = 0;
+	
 	// Keyboard events
 	if (cursors.left.isDown){
 		player.body.velocity.x = -150;
@@ -76,20 +110,62 @@ function update(){
 		player.animations.stop();
 		player.frame = 4;
 	}
+	
 	// Allow player to jump
 	if (cursors.up.isDown && player.body.touching.down) {
 		player.body.velocity.y = -300;
 	}
 
-
 // Enemy AI
 if (baddie.x > 749) {
 	baddie.animations.play('left');
 	baddie.body.velocity.x = -120;
-
-	}else if (baddie.x < 405) {
+	}
+	else if (baddie.x < 405) {
 	baddie.animations.play('left');
 	baddie.body.velocity.x = 120;	
 	}
+
+if (baddie2.x > 200) {
+	baddie2.animations.play('left');
+	baddie2.body.velocity.x = -80;
+	}
+	else if (baddie2.x < 20) {
+	baddie2.animations.play('left');
+	baddie2.body.velocity.x = 80;	
+	}
+
+if (baddie3.x > 749) {
+	baddie3.animations.play('left');
+	baddie3.body.velocity.x = -150;
+	}
+	else if (baddie3.x < 200) {
+	baddie3.animations.play('left');
+	baddie3.body.velocity.x = 150;	
+	}
+	//More Collisions 
+	game.physics.arcade.collide(stars, platforms);
+	// special collision called overlap - we define what happens
+	game.physics.arcade.overlap(player, stars, collectStar, null, this); 
+	game.physics.arcade.overlap(player, baddie, loselife, null, this);
+	game.physics.arcade.overlap(player, baddie2, loselife, null, this); 
+	game.physics.arcade.overlap(player, baddie3, loselife, null, this);  
+
 }
+
+// Define collectstar function 
+function collectStar (player, star) {
+
+}
+
+// Define loselife function 
+function loselife (player, baddie) {
+
+}
+
+
+
+
+
+
 
