@@ -80,7 +80,7 @@ function create(){
 	stars.enableBody=true;
 	//Loop to create 12 stars 
 	for  (var i = 0; i < 12; i++) {
-		var star = stars.create(i * 70,'star');
+		var star = stars.create(i * 70, 0,'star');
 		star.body.gravity.y = 200;
 		star.body.bounce.y = math.random() * 0.9;
 	}
@@ -100,7 +100,7 @@ function update(){
 	player.body.velocity.x = 0;
 	
 	// Keyboard events
-	if (cursors.left.isDown){
+	if (cursor.left.isDown){
 		player.body.velocity.x = -150;
 		player.animations.play('left');
 	} else if (cursors.right.isDown) {
@@ -155,13 +155,27 @@ if (baddie3.x > 749) {
 
 // Define collectstar function 
 function collectStar (player, star) {
+	star.kill();
+	score = score++;
+	// create a star to replace killed star 
+	star = stars.create(Math.floor(math.random() * 750), 0,'star');
+	star.body.gravity.y = 200;
+	star.body.bounce.y = Math.random() * 0.9;
 
 }
 
 // Define loselife function 
 function loselife (player, baddie) {
-
+	baddie.kill();
+	score = score - 5; 
+	baddie.reset(750, 20);
 }
+function loselife2 (player, baddie) {
+	baddie.kill();
+	score = score - 5; 
+	baddie.reset(10, 20);
+}
+
 
 
 
